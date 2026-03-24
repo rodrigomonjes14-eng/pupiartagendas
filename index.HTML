@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pupiart_Agendas</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* --- HEADER --- */
+header {
+    background: linear-gradient(135deg, #6c63ff, #8a7cff);
+    color: white;
+    padding: 20px 5%;
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    align-items: center;
+}
+
+.logo-header {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.texto-header {
+    text-align: center;
+}
+
+.texto-header h1 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.texto-header p {
+    margin: 5px 0 0 0;
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+.spacer {
+    width: 120px;
+}
+
+@media (max-width: 600px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .spacer { display: none; }
+}
+
+/* --- NAVEGACIÓN --- */
+nav {
+    background: #333;
+    text-align: center;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- SECCIONES --- */
+section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.producto {
+    background: white;
+    padding: 30px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+button {
+    background: #6c63ff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #5249d6;
+}
+
+.multimedia {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.galeria {
+    margin-top: 40px;
+}
+
+.galeria img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: zoom-in; /* Indica que se puede ampliar */
+}
+
+.galeria img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.redes a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.whatsapp { background: #25D366; }
+.instagram { background: #E1306C; }
+
+#opciones {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-left: 5px solid #6c63ff;
+    border-radius: 5px;
+    text-align: left;
+    display: inline-block;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 25px 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* --- ESTILOS DEL VISOR DE IMÁGENES (MODAL) --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9); /* Fondo negro opaco */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 10px;
+    animation: zoom 0.3s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+.cerrar {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar:hover {
+    color: #bbb;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <img src="./Nueva carpeta/img/pupiart.png" alt="Logo Pupiart" class="logo-header">
+    <div class="texto-header">
+        <h1>Pupiart Agendas</h1>
+        <p>Organiza tus días con estilo</p>
+    </div>
+    <div class="spacer"></div>
+</header>
+
+<nav>
+    <a href="#productos">Productos</a>
+    <a href="#contacto">Contacto</a>
+</nav>
+
+<section id="productos">
+    <h1>Agendas Docentes</h1>
+    <p>Con tu nombre y diseño único</p>
+
+    <div class="producto">
+        <button onclick="mostrarOpciones()">Consultar precios</button>
+        <div id="opciones" style="display:none;">
+            <p><strong>•</strong> Tapa dura tamaño B5 a solo $ 24.000</p>
+            <p><strong>•</strong> Tamaño A4 tapa blanda a solo $ 18.000</p>
+            <p><strong>•</strong> Tamaño A5 tapa blanda a solo $ 10.000</p>
+            <p><strong>•</strong> Consultar otros tamaños</p>
+        </div>
+    </div>
+
+    <div class="multimedia">
+        <a href="https://www.pinterest.com" target="_blank">
+            <button style="background:#bd081c;">Busca tu diseño en Pinterest</button>
+        </a>
+        <video width="320" controls>
+            <source src="./Nueva carpeta/videos/WhatsApp Video 2026-03-23 at 19.02.16.mp4" type="video/mp4">
+        </video>
+        </div>
+        <div class="reproductor-lateral">
+    <p>Disfruta de nuestra música, ¡dale play!</p>
+        <audio controls>
+            <audio id="musicaFondo" controls autoplay loop></audio>
+            <source src="./Nueva carpeta/audio/flowers.mp3.mp3" type="audio/mpeg">
+            Tu navegador no soporta audios.
+        </audio>
+    </div>
+
+    <div class="galeria">
+        <h2>Trabajos terminados</h2>
+        <!-- Al hacer clic, se llama a la función abrirImagen() -->
+        <img src="./Nueva carpeta/agendas 1.jpg.jpeg" alt="Agenda 1" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 2.jpg.jpeg" alt="Agenda 2" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 3.jpg.jpeg" alt="Agenda 3" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 4.jpg.jpeg" alt="Agenda 4" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 5.jpg.jpeg" alt="Agenda 5" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 6.jpg.jpeg" alt="Agenda 6" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 7.jpg.jpeg" alt="Agenda 7" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 8.jpg.jpeg" alt="Agenda 8" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 9.jpg.jpeg" alt="Agenda 9" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 10.jpg.jpeg" alt="Agenda 10" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 11.jpg.jpeg" alt="Agenda 11" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 12.jpg.jpeg" alt="Agenda 12" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 13.jpg.jpeg" alt="Agenda 13" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 14.jpg.jpeg" alt="Agenda 14" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 15.jpg.jpeg" alt="Agenda 15" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 16.jpg.jpeg" alt="Agenda 16" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 17.jpg.jpeg" alt="Agenda 17" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 18.jpg.jpeg" alt="Agenda 18" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 19.jpg.jpeg" alt="Agenda 19" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 20.jpg.jpeg" alt="Agenda 20" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 21.jpg.jpeg" alt="Agenda 21" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 22.jpg.jpeg" alt="Agenda 22" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 23.jpg.jpeg" alt="Agenda 23" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 24.jpg.jpeg" alt="Agenda 24" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 25.jpg.jpeg" alt="Agenda 25" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 26.jpg.jpeg" alt="Agenda 26" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 27.jpg.jpeg" alt="Agenda 27" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 28.jpg.jpeg" alt="Agenda 28" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 29.jpg.jpeg" alt="Agenda 29" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 30.jpg.jpeg" alt="Agenda 30" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 31.jpg.jpeg" alt="Agenda 31" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 32.jpg.jpeg" alt="Agenda 32" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 33.jpg.jpeg" alt="Agenda 33" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 34.jpg.jpeg" alt="Agenda 34" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 35.jpg.jpeg" alt="Agenda 35" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 36.jpg.jpeg" alt="Agenda 36" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 37.jpg.jpeg" alt="Agenda 37" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 38.jpg.jpeg" alt="Agenda 38" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 39.jpg.jpeg" alt="Agenda 39" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 40.jpg.jpeg" alt="Agenda 40" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 41.jpg.jpeg" alt="Agenda 41" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 42.jpg.jpeg" alt="Agenda 42" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 43.jpg.jpeg" alt="Agenda 43" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 44.jpg.jpeg" alt="Agenda 44" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 45.jpg.jpeg" alt="Agenda 45" onclick="abrirImagen(this)">
+        <img src="./Nueva carpeta/agendas 46.jpg.jpeg" alt="Agenda 46" onclick="abrirImagen(this)">
+    </div>
+</section>
+
+<section id="contacto">
+    <h2>Contacto</h2>
+    <div class="redes">
+        <a href="https://wa.me" target="_blank" class="whatsapp">WhatsApp</a>
+        <a href="https://www.instagram.com" target="_blank" class="instagram">Instagram</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 - Pupiart_Agendas</p>
+</footer>
+
+<!-- ESTRUCTURA DEL VISOR (MODAL) -->
+<div id="miVisor" class="modal">
+    <span class="cerrar" onclick="cerrarImagen()">&times;</span>
+    <img class="modal-content" id="imgAmpliada">
+</div>
+
+<script>
+// Función para mostrar/ocultar precios
+function mostrarOpciones() {
+    var opciones = document.getElementById("opciones");
+    opciones.style.display = (opciones.style.display === "none" || opciones.style.display === "") ? "block" : "none";
+}
+
+// FUNCIONES PARA EL VISOR DE IMÁGENES
+var visor = document.getElementById("miVisor");
+var imgAmpliada = document.getElementById("imgAmpliada");
+
+function abrirImagen(elemento) {
+    visor.style.display = "block";
+    imgAmpliada.src = elemento.src;
+}
+
+function cerrarImagen() {
+    visor.style.display = "none";
+}
+
+// Cerrar si el usuario hace clic fuera de la imagen
+window.onclick = function(event) {
+    if (event.target == visor) {
+        cerrarImagen();
+    }
+}
+</script>
+
+</body>
+</html>
